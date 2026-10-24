@@ -25,16 +25,17 @@ def ask(question: str) -> str:
     client = genai.Client(api_key=get_api_key())
     response = client.models.generate_content(model=MODEL, contents=question)
 
-    # response.usage_metadata から入力トークン数と出力トークン数を表示する
-    # usage_metadata の構造は dict か属性アクセスどちらにも対応させる
     usage = getattr(response, "usage_metadata", None)
     if usage is not None:
-        if hasattr(usage, "get"):
-            input_tokens = usage.get("input_tokens") or usage.get("input_token_count") or usage.get("prompt_tokens")
-            output_tokens = usage.get("output_tokens") or usage.get("output_token_count") or usage.get("completion_tokens")
-        else:
-            input_tokens = getattr(usage, "input_tokens", None) or getattr(usage, "input_token_count", None) or getattr(usage, "prompt_tokens", None)
-            output_tokens = getattr(usage, "output_tokens", None) or getattr(usage, "output_token_count", None) or getattr(usage, "completion_tokens", None)
+        def get_token_count(*names: str) -> int | None:
+            for name in names:
+                value = usage.get(name) if hasattr(usage, "get") else getattr(usage, name, None)
+                if value is not None:
+                    return value
+            return None
+
+        input_tokens = get_token_count("prompt_token_count", "input_tokens", "input_token_count", "prompt_tokens")
+        output_tokens = get_token_count("candidates_token_count", "output_tokens", "output_token_count", "completion_tokens")
 
         print(f"[usage] input_tokens={input_tokens} output_tokens={output_tokens}")
 
