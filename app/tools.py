@@ -8,6 +8,8 @@ import json
 from functools import cache
 from pathlib import Path
 
+import random
+
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 MAX_RESULTS = 3
 
@@ -77,3 +79,39 @@ def get_lecture_summary(lecture: int) -> str:
         available = sorted(p.stem for p in (DATA_DIR / "lectures").glob("*.md"))
         return f"第{lecture}回の要点はまだありません。用意されている回: {', '.join(available)}"
     return path.read_text(encoding="utf-8")
+
+def make_quiz(lecture: int) -> str:
+    """
+    指定した回の用語から1つを選び、確認問題と答えを返す。
+    「第2回の確認問題を出して」のように、
+    復習用の問題を求められたときに使う。
+    """
+
+    # 1. load_glossary() から lecture が一致する用語を集める
+    glossary = [
+        item for item in load_glossary()
+        if item["lecture"] == lecture
+    ]
+
+    if not glossary:
+        return f"第{lecture}回の用語が見つかりません。"
+
+    term = random.choice(glossary)
+
+    return (
+        f"【問題】\n"
+        f"{term['definition']}とは何ですか？\n\n"
+        f"【答え】\n"
+        f"{term['term']}"
+    )
+
+    # 2. 1つ選ぶ（random.choice）
+    term = random.choice(glossary)
+
+    # 3. 問題と答えを文字列で返す
+    return (
+        f"【問題】\n"
+        f"{term['definition']}とは何ですか？\n\n"
+        f"【答え】\n"
+        f"{term['term']}"
+    )
