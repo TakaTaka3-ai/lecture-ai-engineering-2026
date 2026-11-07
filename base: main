@@ -1,0 +1,14 @@
+[33m9405a4b[m[33m ([m[1;31morigin/lec03[m[33m, [m[1;32mlec03[m[33m)[m docs: modified answer.md for homework.
+[33m3f60c04[m docs: modified lectures/03/answer.md for homework.
+[33m2e500c0[m Merge branch 'matsuolab:main' into lec03
+[33mbc41dfa[m Merge pull request #432 from matsuolab/lec04-prep
+[33mcf0e2c3[m 第4回: 評価セットのラベル付けと LLM-as-a-Judge の演習・宿題を追加
+[33m6df1d11[m MCP の回を第5回から第6回に変更（第5回はデータとコンテキストの回になるため）
+[33mfae899a[m B2: 第2回の参考結果（講師が T4 で実行したもの）を追加
+[33m123fcc1[m A4: 用語集と第3回の要点から adk web の説明を外す
+[33mf3f40a3[m A3: 承認付きのツールを足しても test_agent が落ちないようにする
+[33mcfcfef2[m B4: 第3回の参考リンクを移転先の URL にする
+[33mbd1de82[m A2: 第3回の宿題の説明を丁寧にする（実装のテストを外す、発展(a)は adk run、発展(b)は Pi の手順を4つに分ける）
+[33mfabea4b[m A1: 第3回の演習の手順をスライドの手順1〜6に合わせる
+[33mc17c00e[m 呼び出すモデルについての補足説明を追加
+[33m662cddd[m problem.md 発展の内容を修正
